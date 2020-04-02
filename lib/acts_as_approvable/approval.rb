@@ -41,7 +41,7 @@ class Approval < ActiveRecord::Base
   ##
   # Build an array of types usable by Rails' `#options_for_select`.
   def self.options_for_type(with_prompt = false)
-    types = all(:select => 'DISTINCT(item_type)').map { |row| row.item_type }
+    types = distinct.pluck(:item_type)
     types.unshift(['All Types', nil]) if with_prompt
     types
   end
